@@ -1,11 +1,16 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 
 export default function Home({ navigation }) {
     return (
         <View style={styles.container}>
-            <Text>Welcome to LiftOff!</Text>
-            <Button title="Go to Login Page" onPress={() => navigation.navigate('Login')} />
+            <Text style={styles.title}>Welcome to LiftOff</Text>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => navigation.navigate('Login')}
+            >
+                <Text style={styles.buttonText}>Go to Login Page</Text>
+            </TouchableOpacity>
         </View>
     );
 }
@@ -15,5 +20,14 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    title: {
+        fontSize: 24,
+        marginBottom: 20,
+    },
+    button: {
+        backgroundColor: '#007bff',
+        padding: 10,
+        borderRadius: 5,
     },
 });
