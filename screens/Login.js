@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -22,7 +22,11 @@ export default function Login() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Login Screen</Text>
+            <Text style={styles.title}>Lift App!!!</Text>
+            <Image 
+                source={require('../assets/lift-app-icon.png')}
+                style={styles.logo}
+            />
             
             <TextInput
                 style={styles.input}
@@ -50,6 +54,10 @@ export default function Login() {
             </TouchableOpacity>
             
             <TouchableOpacity style={styles.googleButton} onPress={handleGoogleSignIn}>
+                <Image 
+                    source={require('../assets/google-logo.png')}
+                    style={styles.googleIcon}
+                />
                 <Text style={styles.buttonText}>Sign in with Google</Text>
             </TouchableOpacity>
         </View>
@@ -60,14 +68,15 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         backgroundColor: '#f5f5f5',
         padding: 20,
     },
     title: {
-        fontSize: 24,
+        fontSize: 48,
         fontWeight: 'bold',
-        marginBottom: 20,
+        marginTop: 50,
+        marginBottom: 50,
     },
     input: {
         width: '100%',
@@ -81,25 +90,38 @@ const styles = StyleSheet.create({
     button: {
         width: '100%',
         height: 40,
-        backgroundColor: '#007AFF',
+        backgroundColor: 'orange',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 5,
         marginBottom: 10,
     },
     googleButton: {
-        width: '100%',
+        width: '80%',
         height: 40,
-        backgroundColor: '#DB4437',
+        backgroundColor: 'black',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 5,
         marginBottom: 10,
+        flexDirection: 'row',
+        paddingHorizontal: 10,
     },
     buttonText: {
         color: 'white',
         fontSize: 16,
         fontWeight: 'bold',
+    },
+    logo: {
+        width: 150,
+        height: 150,
+        marginBottom: 35,
+        borderRadius: 75,
+    },
+    googleIcon: {
+        width: 24,
+        height: 24,
+        marginRight: 10,
     },
 });
 
