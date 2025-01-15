@@ -1,9 +1,21 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    useEffect(() => {
+        configureGoogleSignIn();
+    }, []);
+
+    const configureGoogleSignIn = () => {
+        GoogleSignin.configure({
+            webClientId: 'YOUR_WEB_CLIENT_ID_HERE', // Get this from Google Cloud Console
+            offlineAccess: true,
+        });
+    };
 
     const handleLogin = () => {
         // Implement login logic here
@@ -15,9 +27,26 @@ export default function Login() {
         console.log('Register pressed');
     };
 
-    const handleGoogleSignIn = () => {
-        // Implement Google Sign-In logic here
-        console.log('Google Sign-In pressed');
+    const handleGoogleSignIn = async () => {
+        try {
+            await GoogleSignin.hasPlayServices();
+            const userInfo = await GoogleSignin.signIn();
+            const {idToken, accessToken, profile} = userInfo;
+            //Use the user info to authenticate the user
+            console.log('Google Sign-In successful', userInfo);
+            // Here you would typically send the user info to your backend
+            // or update your app's state to reflect that the user is signed in
+        } catch (error) {
+            if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+                console.log('Google Sign-In was cancelled');
+            } else if (error.code === statusCodes.IN_PROGRESS) {
+                console.log('Google Sign-In is already in progress');
+            } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+                console.log('Play Services not available');
+            } else {
+                console.error('Google Sign-In error:', error);
+            }
+        }
     };
 
     return (
